@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './admin-home.component.css'
 })
 export class AdminHomeComponent {
+  constructor(private adminService : AdminService){
 
+  }
+
+  ngOnInit(){
+    this.adminService.checkAuth();
+  }
 }

@@ -66,6 +66,12 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "ssl": true,
+            "sslCert": "./ssl/dev.local+4.pem",
+            "sslKey": "./ssl/dev.local+4-key.pem",
+            "port": 4201
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {

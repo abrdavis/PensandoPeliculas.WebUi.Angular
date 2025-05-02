@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ReviewThumbnailComponent } from './shared/components/review-thumbnail/review-thumbnail.component';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import routeConfig from './app.rputes';
 import { LoginComponent } from './pages/login/login.component';
@@ -24,7 +24,8 @@ import { AuthErrorInterceptor } from './utility/interceptors/auth-interceptor';
     FormsModule
   ],
   providers: [provideHttpClient(
-    withFetch()
+    withFetch(),
+    withInterceptorsFromDi()
   ),
   {
     provide: HTTP_INTERCEPTORS,

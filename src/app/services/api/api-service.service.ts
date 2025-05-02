@@ -9,7 +9,7 @@ export class ApiService {
   private httpClient = inject(HttpClient);
   constructor() { }
 
-  get<T>(url: string, options?: { headers?: HttpHeaders }): Observable<T> {
+  get<T>(url: string, options?: { headers?: HttpHeaders, withCredentials?: boolean }): Observable<T> {
     return this.httpClient.get<T>(url, options);
   }
 
