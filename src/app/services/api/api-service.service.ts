@@ -12,4 +12,8 @@ export class ApiService {
   get<T>(url: string, options?: { headers?: HttpHeaders }): Observable<T> {
     return this.httpClient.get<T>(url, options);
   }
+
+  post<T>(url: string, data: any, options?: { headers?: HttpHeaders, withCredentials?: boolean }): Observable<T> {
+    return this.httpClient.post<T>(url,data, options);
+  }
 }
