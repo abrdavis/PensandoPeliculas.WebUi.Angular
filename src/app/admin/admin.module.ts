@@ -6,6 +6,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { ReviewAdminComponent } from './componenets/review/review-admin/review-admin.component';
 import { InsertReviewComponent } from './pages/review/insert-review/insert-review.component';
 import { EditReviewComponent } from './pages/review/edit-review/edit-review.component';
+import { ModalPopupComponent } from '../shared/components/modal-popup/modal-popup.component';
 
 
 @NgModule({
@@ -13,11 +14,12 @@ import { EditReviewComponent } from './pages/review/edit-review/edit-review.comp
     AdminHomeComponent,
     ReviewAdminComponent,
     InsertReviewComponent,
-    EditReviewComponent
+    EditReviewComponent,
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ModalPopupComponent
   ]
 })
 export class AdminModule { }

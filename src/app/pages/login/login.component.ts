@@ -19,7 +19,8 @@ export class LoginComponent {
 
   onLoginClick(){
     this.authService.login(this.username, this.password).subscribe(data => {
-      if(data.success){
+      if (data.success) {
+        localStorage.setItem('user', JSON.stringify(data.user));
         this.router.navigate(['/admin']);
       }
       else{

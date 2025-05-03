@@ -1,0 +1,16 @@
+<div class="position-absolute modal-popup" [class]="{'d-none' : !isDisplayed}">
+  <div class="w-100">
+    <ng-content select="[modal-header]">
+
+    </ng-content>
+  </div>
+
+  <div class="card-divider"></div>
+  <form #myForm="ngForm" (ngSubmit)="onFormSubmit(myForm)">
+    <ng-content select="[modal-content]">
+
+
+      <button type="submit">Submit</button>
+    </ng-content>
+  </form>
+</div>

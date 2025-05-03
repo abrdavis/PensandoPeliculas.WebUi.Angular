@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Review } from '../../../../models/reviewModel';
 
 @Component({
   selector: 'app-insert-review',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './insert-review.component.css'
 })
 export class InsertReviewComponent {
+
 
 }
