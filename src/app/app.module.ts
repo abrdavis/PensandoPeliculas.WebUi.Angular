@@ -10,13 +10,16 @@ import { provideRouter } from '@angular/router';
 import routeConfig from './app.rputes';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthErrorInterceptor } from './utility/interceptors/auth-interceptor';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ReviewThumbnailComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

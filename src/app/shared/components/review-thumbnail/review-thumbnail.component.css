@@ -1,0 +1,20 @@
+.review-poster-home {
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    display: block;
+}
+
+.thumb-link {
+    padding: 1.5rem !important;
+    aspect-ratio: 16/9;
+    position: relative;
+    display: flex;
+    font-family: freight-big-pro, serif;
+    font-weight: 400;
+}
+
+#thumbContainer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
