@@ -11,13 +11,11 @@ import routeConfig from './app.rputes';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthErrorInterceptor } from './utility/interceptors/auth-interceptor';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { ModalPopupComponent } from './shared/components/modal-popup/modal-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ReviewThumbnailComponent,
     LoginComponent,
     NavbarComponent,
   ],
@@ -26,7 +24,7 @@ import { ModalPopupComponent } from './shared/components/modal-popup/modal-popup
     AppRoutingModule,
     FormsModule,
     RouterLink,
-    ModalPopupComponent
+    ReviewThumbnailComponent
   ],
   providers: [provideHttpClient(
     withFetch(),

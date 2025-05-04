@@ -1,12 +1,6 @@
 <form id="reviewForm">
   <span (click)="addTitleModal.displayModal()">Add Title</span>
 </form>
-<modal-popup #addTitleModal (onSubmit)="onModalTitleClick($event)">
-  <div modal-header>
-    Add Header
-  </div>
-  <div content>
-    <input type="text" id="modal-title-name"/>
-  </div>
-</modal-popup>
+<insert-title-modal #addTitleModal (onSubmit)="onModalTitleClick($event)">
+<insert-title-modal>
 

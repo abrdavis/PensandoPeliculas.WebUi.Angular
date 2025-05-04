@@ -1,20 +1,21 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Review } from '../../../../models/reviewModel';
-import { ModalPopupComponent } from '../../../../shared/components/modal-popup/modal-popup.component';
+import { InsertTitleModalComponent } from '../../title/insert-title-modal-component';
 
 @Component({
   selector: 'review-admin',
-  standalone: false,
+  standalone: true,
   templateUrl: './review-admin.component.html',
   styleUrl: './review-admin.component.css',
+  imports: [InsertTitleModalComponent]
 })
 export class ReviewAdminComponent {
   @Input() review: Review = new Review()
   @Input() mode: String = ''
-  @ViewChild(ModalPopupComponent) childComponent!: ModalPopupComponent;
+  @ViewChild(InsertTitleModalComponent) childComponent!: InsertTitleModalComponent;
 
 
-  showAddTitleModal(addTitleModal: ModalPopupComponent) {
+  showAddTitleModal(addTitleModal: InsertTitleModalComponent) {
     addTitleModal.displayModal();
   }
   onModalTitleClick(eventData: any) {

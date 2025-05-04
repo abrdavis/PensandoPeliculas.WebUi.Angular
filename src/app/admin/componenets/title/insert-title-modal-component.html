@@ -1,0 +1,46 @@
+<div class="position-absolute modal-popup" [class]="{'d-none' : !isDisplayed}">
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Title</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="titleForm">
+        <div class="mb-5">
+          <div>
+            <label for="titleReleaseDate" class="form-label">Name</label>
+            <input type="text" formControlName="titleName" id="titleName" class="form-control" />
+          </div>
+
+          <div>
+            <label for="titleReleaseDate" class="form-label d-block">Release Date</label>
+            <input type="date" formControlName="releaseDate" id="titleReleaseDate" class="form-control d-inline-block"
+              style="width:80%" />
+          </div>
+        </div>
+        <div>
+          <div>
+            <label>Genres</label>
+            <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
+            :allowNewValues="true" /> -->
+          </div>
+          <div>
+            <label>Duration (min.)</label>
+            <input type="number"  formControlName="titleDuration" />
+          </div>
+        </div>
+        <div>
+          <label for="formFileLg" class="form-label">Poster Image</label>
+          <input class="form-control form-control-lg" id="formFileLg" type="file"
+            (change)="onTitlePosterSelect($event)"  formControlName="titlePoster">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="insertTitleClick()">Add Title</button>
+    </div>
+
+  </div>
+</div>

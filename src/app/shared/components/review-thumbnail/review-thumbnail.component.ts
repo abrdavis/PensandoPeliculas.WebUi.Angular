@@ -3,7 +3,7 @@ import { Review } from '../../../models/reviewModel';
 
 @Component({
   selector: 'review-thumbnail',
-  standalone: false,
+  standalone: true,
   templateUrl: './review-thumbnail.component.html',
   styleUrl: './review-thumbnail.component.css'
 })
