@@ -1,6 +1,6 @@
 <div class="position-absolute modal-overlay z-10" [class]="{'d-none' : !isDisplayed}" (click)="onOverlayClick()">
-
-  <div class="modal-popup position-relative z-20" (click)="modalCLick($event)">
+</div>
+  <div class="modal-popup position-relative z-20" [class]="{'d-none' : !isDisplayed}">
     <div class="modal-header d-flex flew-row justfiy-between">
       <span class="modal-header-text">Add Title</span>
       <i-feather name="x" class="ml-auto" (click)="closeModal()"></i-feather>
@@ -37,10 +37,9 @@
         </div>
       </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer flex-row-reverse d-flex">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
       <button type="button" class="btn btn-primary" (click)="insertTitleClick()">Add Title</button>
     </div>
 
   </div>
-</div>

@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, output, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TitleService } from '../../../services/titles/title-service';
 import { FeatherIconsModule } from '../../../shared/modules/feather-icons-module/feather.module';
-
 
 @Component({
   selector: 'insert-title-modal',
@@ -25,9 +24,6 @@ export class InsertTitleModalComponent {
   isDisplayed: boolean = false;
   @Output() onSubmit = new EventEmitter<any>();
 
-modalCLick(event: MouseEvent){
-  event.stopPropagation();
-}
   onOverlayClick(){
     this.closeModal();
   }
