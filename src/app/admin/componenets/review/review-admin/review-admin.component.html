@@ -1,5 +1,5 @@
 <form id="reviewForm">
-  <span (click)="addTitleModal.displayModal()">Add Title</span>
+  <span (click)="showAddTitleModal(addTitleModal)">Add Title</span>
 </form>
 <insert-title-modal #addTitleModal (onSubmit)="onModalTitleClick($event)">
 <insert-title-modal>

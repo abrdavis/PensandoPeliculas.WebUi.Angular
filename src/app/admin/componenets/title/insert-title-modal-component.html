@@ -3,20 +3,26 @@
   <div class="modal-popup position-relative z-20" [class]="{'d-none' : !isDisplayed}">
     <div class="modal-header d-flex flew-row justfiy-between">
       <span class="modal-header-text">Add Title</span>
-      <i-feather name="x" class="ml-auto" (click)="closeModal()"></i-feather>
+      <i-feather name="x" class="ml-auto cursor-pointer" (click)="closeModal()"></i-feather>
     </div>
     <div class="modal-body z-20">
       <form [formGroup]="titleForm">
         <div class="mb-3 d-flex flex-row w-100">
           <div class="modal-col">
-            <label for="titleReleaseDate" class="d-block">Name</label>
-            <input type="text" formControlName="titleName" id="titleName" class="form-control d-inline-block" />
+            <mat-form-field class="w-90">
+              <mat-label>Title Name</mat-label>
+              <input matInput formControlName="titleName">
+            </mat-form-field>
+  
           </div>
 
           <div class="modal-col">
-            <label for="titleReleaseDate" class="form-label d-block">Release Date</label>
-            <input type="date" formControlName="releaseDate" id="titleReleaseDate" class="form-control d-inline-block"
-              style="width:80%" />
+            <mat-form-field class="w-90">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
         <div class="w-100 d-flex flew-row mb-3">
@@ -25,9 +31,11 @@
             <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
             :allowNewValues="true" /> -->
           </div>
-          <div class="modal-col">
-            <label>Duration (min.)</label>
-            <input type="number"  formControlName="titleDuration" />
+          <div class="modal-col"> 
+            <mat-form-field class="w-90">
+            <mat-label>Duration (min.) </mat-label>
+            <input matInput formControlName="titleDuration" type="number">
+          </mat-form-field>
           </div>
         </div>
         <div>
@@ -38,8 +46,7 @@
       </form>
     </div>
     <div class="modal-footer flex-row-reverse d-flex">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="insertTitleClick()">Add Title</button>
+      <button mat-button (click)="insertTitleClick()">Add Title</button>
     </div>
 
   </div>

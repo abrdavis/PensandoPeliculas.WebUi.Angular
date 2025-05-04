@@ -1,14 +1,21 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, output, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TitleService } from '../../../services/titles/title-service';
 import { FeatherIconsModule } from '../../../shared/modules/feather-icons-module/feather.module';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'insert-title-modal',
   standalone: true,
   templateUrl: './insert-title-modal-component.html',
   styleUrl: './insert-title-modal-component.css',
-  imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule]
+  providers: [provideNativeDateAdapter()],
+  imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InsertTitleModalComponent {
   titleForm = new FormGroup({
@@ -18,7 +25,8 @@ export class InsertTitleModalComponent {
     titlePoster: new FormControl<File | null>(null),
     titleGenreId: new FormControl<number | null>(null)
   });
-  constructor(private titleService: TitleService) {
+  constructor(private titleService: TitleService,
+    private cd: ChangeDetectorRef) {
 
   }
   isDisplayed: boolean = false;
@@ -29,6 +37,7 @@ export class InsertTitleModalComponent {
   }
   displayModal() {
     this.isDisplayed = true;
+    this.cd.markForCheck();
   }
 
   closeModal() {
