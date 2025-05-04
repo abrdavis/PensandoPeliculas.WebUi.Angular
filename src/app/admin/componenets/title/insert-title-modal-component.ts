@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, output, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TitleService } from '../../../services/titles/title-service';
+import { FeatherIconsModule } from '../../../shared/modules/feather-icons-module/feather.module';
+
 
 @Component({
   selector: 'insert-title-modal',
   standalone: true,
   templateUrl: './insert-title-modal-component.html',
   styleUrl: './insert-title-modal-component.css',
-  imports: [FormsModule, ReactiveFormsModule]
+  imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule]
 })
 export class InsertTitleModalComponent {
   titleForm = new FormGroup({
@@ -23,6 +25,12 @@ export class InsertTitleModalComponent {
   isDisplayed: boolean = false;
   @Output() onSubmit = new EventEmitter<any>();
 
+modalCLick(event: MouseEvent){
+  event.stopPropagation();
+}
+  onOverlayClick(){
+    this.closeModal();
+  }
   displayModal() {
     this.isDisplayed = true;
   }

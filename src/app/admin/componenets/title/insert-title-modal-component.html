@@ -1,37 +1,37 @@
-<div class="position-absolute modal-popup" [class]="{'d-none' : !isDisplayed}">
+<div class="position-absolute modal-overlay z-10" [class]="{'d-none' : !isDisplayed}" (click)="onOverlayClick()">
 
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">Add Title</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-popup position-relative z-20" (click)="modalCLick($event)">
+    <div class="modal-header d-flex flew-row justfiy-between">
+      <span class="modal-header-text">Add Title</span>
+      <i-feather name="x" class="ml-auto" (click)="closeModal()"></i-feather>
     </div>
-    <div class="modal-body">
+    <div class="modal-body z-20">
       <form [formGroup]="titleForm">
-        <div class="mb-5">
-          <div>
-            <label for="titleReleaseDate" class="form-label">Name</label>
-            <input type="text" formControlName="titleName" id="titleName" class="form-control" />
+        <div class="mb-3 d-flex flex-row w-100">
+          <div class="modal-col">
+            <label for="titleReleaseDate" class="d-block">Name</label>
+            <input type="text" formControlName="titleName" id="titleName" class="form-control d-inline-block" />
           </div>
 
-          <div>
+          <div class="modal-col">
             <label for="titleReleaseDate" class="form-label d-block">Release Date</label>
             <input type="date" formControlName="releaseDate" id="titleReleaseDate" class="form-control d-inline-block"
               style="width:80%" />
           </div>
         </div>
-        <div>
-          <div>
+        <div class="w-100 d-flex flew-row mb-3">
+          <div class="modal-col">
             <label>Genres</label>
             <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
             :allowNewValues="true" /> -->
           </div>
-          <div>
+          <div class="modal-col">
             <label>Duration (min.)</label>
             <input type="number"  formControlName="titleDuration" />
           </div>
         </div>
         <div>
-          <label for="formFileLg" class="form-label">Poster Image</label>
+          <label for="formFileLg" class="d-block">Poster Image</label>
           <input class="form-control form-control-lg" id="formFileLg" type="file"
             (change)="onTitlePosterSelect($event)"  formControlName="titlePoster">
         </div>
