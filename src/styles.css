@@ -122,7 +122,11 @@
   margin-left: auto;
   width: 1000px;
 }
-
+@media (min-width: 576px) {
+  .container {
+      width: 540px;
+  }
+}
 @media (min-width: 768px) {
   .container {
     width: 750px;
