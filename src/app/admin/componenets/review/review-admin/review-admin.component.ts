@@ -22,28 +22,32 @@ export class ReviewAdminComponent {
   @Input() mode: String = ''
   @ViewChild(InsertTitleModalComponent) insertTitleModal?: InsertTitleModalComponent;
   filteredTitles!: Observable<Title[]>;
-  
+
   reviewForm = new FormGroup({
+    titleIdForReview: new FormControl<number>(0, [Validators.min(1)]),
     titleForReview: new FormControl<Title | ''>('', [Validators.required]),
-    reviewTitle: new FormControl<string>('',[Validators.required]),
-    reviewText: new FormControl<string>('',[Validators.required]),
+    reviewTitle: new FormControl<string>('', [Validators.required]),
+    reviewText: new FormControl<string>('', [Validators.required]),
     reviewRating: new FormControl<number>(1,
       [Validators.required,
-         Validators.min(1),
-        Validators.max(10),
-        Validators.pattern(/^\d*\.?\d{1}$/)])
+      Validators.min(1),
+      Validators.max(10),
+      Validators.pattern(/^\d*\.?\d{1}$/)])
   });
 
   constructor(private titleService: TitleService) {
 
   }
-getPosterImageUrl() : string {
-  const title : Title = this.reviewForm.get('titleForReview')?.value as Title;
-  return title?.posterUrl ?? '';
-}
+  titleSelected(title: Title) {
+    this.reviewForm.patchValue({titleIdForReview: title.titleId});
+  }
+  getPosterImageUrl(): string {
+    const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
+    return title?.posterUrl ?? '';
+  }
   ngOnInit() {
     this.filteredTitles = this.reviewForm.get('titleForReview')!.valueChanges.pipe(
-      debounceTime(300), 
+      debounceTime(300),
       switchMap(value => this.titleService.getTitlesForFilter(value as string))
     );
   }
@@ -57,15 +61,15 @@ getPosterImageUrl() : string {
   titleDisplayAutoComplete(title: Title) {
     return title && title.titleName ? title.titleName : '';
   }
-  insertReviewClick(){
- 
-    if(this.reviewForm.valid){
-      const title : Title = this.reviewForm.get('titleForReview')?.value as Title;
+  insertReviewClick() {
+    const titleId = this.reviewForm.get('titleIdForReview');
+    if (this.reviewForm.valid) {
+      const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
       console.log(title);
     }
-    else{
+    else {
       Object.values(this.reviewForm.controls).forEach(control => {
-        if(!control.valid)
+        if (!control.valid)
           control.markAsDirty();
       });
     }

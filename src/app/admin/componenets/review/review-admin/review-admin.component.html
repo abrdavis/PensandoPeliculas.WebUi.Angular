@@ -6,15 +6,18 @@
     <div class="d-flex flex-column w-100">
       <div class="w-100 mb-3">
         <mat-form-field class="w-100">
+          <input type="hidden" formControlName="titleIdForReview"/>
           <mat-label>Title</mat-label>
-          <input type="text" matInput formControlName="titleForReview" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete">
+          <input type="text" formControlName="titleForReview" matInput [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete"   [displayWith]="titleDisplayAutoComplete" 
+           (optionSelected)='titleSelected($event.option.value)'
+           >
             @for (title of filteredTitles | async; track title) {
               <mat-option [value]="title">{{title.titleName}}</mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
-        <div *ngIf="reviewForm.get('titleForReview')?.hasError('required')" class="error-text">
+        <div *ngIf="reviewForm.get('titleIdForReview')?.hasError('min')" class="error-text">
           A title is required for a review.
         </div>
         <span (click)="showAddTitleModal()">Add New Title</span>
