@@ -1,25 +1,65 @@
 <form id="reviewForm" [formGroup]="reviewForm">
-  <div class="d-flex">
-    <div>
+  <div class="d-flex flew-row">
+    <div id="posterImgContainer">
       <img [attr.src]="getPosterImageUrl()" class="poster-image"/>
     </div>
-    <div>
-      <mat-form-field class="w-100">
-        <mat-label>Title</mat-label>
-        <input type="text" matInput formControlName="titleForReview" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete">
-          @for (title of filteredTitles | async; track title) {
-            <mat-option [value]="title">{{title.titleName}}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
+    <div class="d-flex flex-column w-100">
+      <div class="w-100 mb-3">
+        <mat-form-field class="w-100">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput formControlName="titleForReview" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete">
+            @for (title of filteredTitles | async; track title) {
+              <mat-option [value]="title">{{title.titleName}}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        <span (click)="showAddTitleModal()">Add New Title</span>
+      </div>
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label>Review Title</mat-label>
+          <input matInput formControlName="reviewTitle">
+        </mat-form-field>
+        <div *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
+          Review title is required.
+        </div>
+      </div>
+      <div class="d-flex flew-row">
+        <div class="header-container">
+
+        </div>
+        <div>
+          <label for="reviewHeader">Review Header</label>
+          <input type="file"/>
+        </div>
+
+      </div>
+      <div>
+        <mat-form-field class="w-100">
+          <mat-label>Review Text</mat-label>
+          <textarea matInput formControlName="reviewText" placeholder="Some insightful thoughts about a film"></textarea>
+        </mat-form-field>
+        <div *ngIf="reviewForm.get('reviewText')?.hasError('required') && (reviewForm.get('reviewText')?.touched|| reviewForm.get('reviewText')?.dirty )" class="error-text">
+          Review text is required.
+        </div>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Rating</mat-label>
+          <input matInput formControlName="reviewRating" type="number">
+        </mat-form-field>
+      </div>
     </div>
-    <div>
-      <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
-    </div>
+
+
   </div>
 
-  <span (click)="showAddTitleModal()">Add Title</span>
+  <div>
+    <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
+  </div>
+
+
 </form>
 
 <insert-title-modal #insertTitleModal (onSubmit)="onModalTitleClick($event)">

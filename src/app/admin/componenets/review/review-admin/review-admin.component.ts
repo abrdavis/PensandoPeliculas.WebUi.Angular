@@ -3,10 +3,10 @@ import { Review } from '../../../../models/reviewModel';
 import { InsertTitleModalComponent } from '../../title/insert-title-modal-component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Title } from '../../../../models/titleModel';
 import { debounceTime, Observable, switchMap } from 'rxjs';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TitleService } from '../../../../services/titles/title-service';
 import { MatInputModule } from '@angular/material/input';
 
@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   templateUrl: './review-admin.component.html',
   styleUrl: './review-admin.component.css',
-  imports: [InsertTitleModalComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe]
+  imports: [CommonModule, InsertTitleModalComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe]
 })
 export class ReviewAdminComponent {
   @Input() review: Review = new Review()
@@ -24,7 +24,14 @@ export class ReviewAdminComponent {
   filteredTitles!: Observable<Title[]>;
   
   reviewForm = new FormGroup({
-    titleForReview: new FormControl<Title | ''>(''),
+    titleForReview: new FormControl<Title | ''>('', [Validators.required]),
+    reviewTitle: new FormControl<string>('',[Validators.required]),
+    reviewText: new FormControl<string>('',[Validators.required]),
+    reviewRating: new FormControl<number>(1,
+      [Validators.required,
+         Validators.min(1),
+        Validators.max(10),
+        Validators.pattern(/^\d*\.?\d{1}$/)])
   });
 
   constructor(private titleService: TitleService) {
@@ -51,7 +58,16 @@ getPosterImageUrl() : string {
     return title && title.titleName ? title.titleName : '';
   }
   insertReviewClick(){
-    const title : Title = this.reviewForm.get('titleForReview')?.value as Title;
-    console.log(title);
+    if(this.reviewForm.valid){
+      const title : Title = this.reviewForm.get('titleForReview')?.value as Title;
+      console.log(title);
+    }
+    else{
+      Object.values(this.reviewForm.controls).forEach(control => {
+        if(!control.valid)
+          control.markAsDirty();
+      });
+    }
+
   }
 }

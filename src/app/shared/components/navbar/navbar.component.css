@@ -1,0 +1,18 @@
+#navBar{
+    height: 55px;
+    background-color:black;
+    color: white;
+    padding: 5px;
+}
+
+a{
+    color:white;
+}
+
+.site-logo-text{
+    font-size: 1.6em;
+}
+
+#adminNavLinks > a{
+    margin-right: 1em;
+}
