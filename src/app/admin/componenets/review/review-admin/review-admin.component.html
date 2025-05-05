@@ -14,6 +14,9 @@
             }
           </mat-autocomplete>
         </mat-form-field>
+        <div *ngIf="reviewForm.get('titleForReview')?.hasError('required')" class="error-text">
+          A title is required for a review.
+        </div>
         <span (click)="showAddTitleModal()">Add New Title</span>
       </div>
       <div>
@@ -21,9 +24,9 @@
           <mat-label>Review Title</mat-label>
           <input matInput formControlName="reviewTitle">
         </mat-form-field>
-        <div *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
+        <span *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
           Review title is required.
-        </div>
+        </span>
       </div>
       <div class="d-flex flew-row">
         <div class="header-container">
@@ -49,6 +52,15 @@
           <mat-label>Rating</mat-label>
           <input matInput formControlName="reviewRating" type="number">
         </mat-form-field>
+        <div *ngIf="(reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
+          <span *ngIf="reviewForm.get('reviewRating')?.hasError('min') || reviewForm.get('reviewRating')?.hasError('max')">
+            Rating should be between 1 and 10.
+          </span>
+          <span *ngIf="reviewForm.get('reviewRating')?.hasError('pattern')">
+            Single digit decimal only.
+          </span>
+            
+        </div>
       </div>
     </div>
 

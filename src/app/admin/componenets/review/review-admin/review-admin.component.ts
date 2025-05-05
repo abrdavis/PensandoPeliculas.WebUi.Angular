@@ -58,6 +58,7 @@ getPosterImageUrl() : string {
     return title && title.titleName ? title.titleName : '';
   }
   insertReviewClick(){
+ 
     if(this.reviewForm.valid){
       const title : Title = this.reviewForm.get('titleForReview')?.value as Title;
       console.log(title);
