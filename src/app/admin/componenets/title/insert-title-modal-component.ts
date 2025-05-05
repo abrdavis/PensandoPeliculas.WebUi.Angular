@@ -7,6 +7,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import { Genre } from '../../../models/genreModel';
+import { map, Observable, startWith } from 'rxjs';
+import { MetaDataService } from '../../../services/metadata/meta-data.service.';
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'insert-title-modal',
@@ -14,7 +19,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
   templateUrl: './insert-title-modal-component.html',
   styleUrl: './insert-title-modal-component.css',
   providers: [provideNativeDateAdapter()],
-  imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule],
+  imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatAutocompleteModule, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InsertTitleModalComponent {
@@ -23,14 +28,41 @@ export class InsertTitleModalComponent {
     releaseDate: new FormControl<Date | null>(null),
     titleDuration: new FormControl<number | null>(null),
     titlePoster: new FormControl<File | null>(null),
-    titleGenreId: new FormControl<number | null>(null)
+    genreForTitle: new FormControl<Genre | ''>('')
   });
   constructor(private titleService: TitleService,
+    private metaDataService : MetaDataService,
     private cd: ChangeDetectorRef) {
 
   }
+  allGenres: Genre[] = []
+  filteredGenres!: Observable<Genre[]>;
   isDisplayed: boolean = false;
   @Output() onSubmit = new EventEmitter<any>();
+
+  private _filter(value: string): Genre[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allGenres.filter(option => option.genreName.toLowerCase().includes(filterValue));
+  }
+
+  ngOnInit(){
+    this.metaDataService.getGenres().subscribe(res =>{
+      this.allGenres = res;
+    })
+
+    this.filteredGenres = this.titleForm.get('genreForTitle')!.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.genreName;
+        return name ? this._filter(name as string) : this.allGenres.slice();
+      }),
+    );
+  }
+
+  displayFn(genre: Genre): string {
+    return genre && genre.genreName ? genre.genreName : '';
+  }
 
   onOverlayClick(){
     this.closeModal();
@@ -54,7 +86,7 @@ export class InsertTitleModalComponent {
       this.titleService.insertTitle(
         this.titleForm.get('titleDuration')?.value as number,
         this.titleForm.get('titleName')?.value as string,
-        this.titleForm.get('titleGenreId')?.value as number,
+        (this.titleForm.get('genreForTitle')?.value as Genre).genreId,
         this.titleForm.get('releaseDate')?.value as Date,
         this.titleForm.get('titlePoster')?.value as File,
       ).subscribe(res =>{
