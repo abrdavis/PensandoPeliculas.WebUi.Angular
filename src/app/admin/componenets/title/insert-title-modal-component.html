@@ -1,6 +1,8 @@
-<div class="position-absolute modal-overlay z-10" [class]="{'d-none' : !isDisplayed}" (click)="onOverlayClick()">
+<div class="position-absolute modal-overlay z-10"
+ [class]="{'d-none' : !isDisplayed}"
+ (click)="onOverlayClick()">
 </div>
-<div class="modal-popup position-relative z-20" [class]="{'d-none' : !isDisplayed}">
+<div class="modal-popup position-absolute z-20" [class]="{'d-none' : !isDisplayed}">
   <div class="modal-header d-flex flew-row justfiy-between">
     <span class="modal-header-text">Add Title</span>
     <i-feather name="x" class="ml-auto cursor-pointer" (click)="closeModal()"></i-feather>
@@ -56,8 +58,9 @@
 
     </form>
   </div>
+  <hr/>
   <div class="modal-footer flex-row-reverse d-flex">
-    <button mat-button (click)="insertTitleClick()">Add Title</button>
+    <button mat-button (click)="insertTitleClick()" type="button">Add Title</button>
   </div>
 
 </div>

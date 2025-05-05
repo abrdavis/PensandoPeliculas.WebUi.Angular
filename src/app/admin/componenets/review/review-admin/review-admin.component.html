@@ -1,15 +1,27 @@
 <form id="reviewForm" [formGroup]="reviewForm">
-  <mat-form-field class="w-100">
-    <mat-label>Title</mat-label>
-    <input type="text" matInput formControlName="titleForReview" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete">
-      @for (title of filteredTitles | async; track title) {
-        <mat-option [value]="title">{{title.titleName}}</mat-option>
-      }
-    </mat-autocomplete>
-  </mat-form-field>
-  <span (click)="showAddTitleModal(addTitleModal)">Add Title</span>
+  <div class="d-flex">
+    <div>
+      <img [attr.src]="getPosterImageUrl()" class="poster-image"/>
+    </div>
+    <div>
+      <mat-form-field class="w-100">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="titleForReview" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete">
+          @for (title of filteredTitles | async; track title) {
+            <mat-option [value]="title">{{title.titleName}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
+    </div>
+  </div>
+
+  <span (click)="showAddTitleModal()">Add Title</span>
 </form>
-<insert-title-modal #addTitleModal (onSubmit)="onModalTitleClick($event)">
-<insert-title-modal>
+
+<insert-title-modal #insertTitleModal (onSubmit)="onModalTitleClick($event)">
+</insert-title-modal>
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter,  OnInit,  Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TitleService } from '../../../services/titles/title-service';
 import { FeatherIconsModule } from '../../../shared/modules/feather-icons-module/feather.module';
@@ -22,7 +22,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatAutocompleteModule, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InsertTitleModalComponent {
+export class InsertTitleModalComponent implements OnInit {
   titleForm = new FormGroup({
     titleName: new FormControl<string | null>(''),
     releaseDate: new FormControl<Date | null>(null),
@@ -44,6 +44,10 @@ export class InsertTitleModalComponent {
     const filterValue = value.toLowerCase();
 
     return this.allGenres.filter(option => option.genreName.toLowerCase().includes(filterValue));
+  }
+
+  ngOnDestory(){
+    console.log('destroyed');
   }
 
   ngOnInit(){

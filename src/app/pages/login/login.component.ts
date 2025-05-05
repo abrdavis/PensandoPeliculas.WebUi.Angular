@@ -21,7 +21,8 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(data => {
       if (data.success) {
         localStorage.setItem('user', JSON.stringify(data.user));
-        this.router.navigate(['/admin']);
+        const returnUrl = localStorage.getItem('returnUrl') || '/admin';
+        this.router.navigate([returnUrl]);
       }
       else{
         console.log('we did not do it')
