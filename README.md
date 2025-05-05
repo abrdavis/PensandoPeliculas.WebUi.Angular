@@ -1,1 +1,1 @@
-An Angular port of the Vue Web UI to refresh my Angular knowledge. 
+An Angular port of the Vue Web UI without bootstrap to refresh my Angular and CSS knowledge. 
