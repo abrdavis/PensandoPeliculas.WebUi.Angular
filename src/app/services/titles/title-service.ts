@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HomePageViewModel } from '../../models/homePageViewModel';
 import { ApiService } from '../api/api-service.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environments';
+import { Title } from '../../models/titleModel';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,18 @@ export class TitleService {
 
    }
 
+   getTitlesForFilter(filterText: string) : Observable<Title[]> {
+    return this.apiService.get<any>(`${environment.apiUrl}/Title/GetTitlesFilterByName?filterText=${filterText}`, {withCredentials:true}).pipe(
+          map((response) =>
+            response.titles.map((item : any) => ({
+              titleId: item.titleId,
+              titleName: item.titleName,
+              posterUrl: item.posterUrl,
+              posterThumbnailUrl: item.posterThumbnailUrl
+            }))
+          )
+        );
+   }
 
   insertTitle(titleDuration: number,
     titleName: string,

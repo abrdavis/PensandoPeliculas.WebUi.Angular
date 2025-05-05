@@ -1,66 +1,63 @@
 <div class="position-absolute modal-overlay z-10" [class]="{'d-none' : !isDisplayed}" (click)="onOverlayClick()">
 </div>
-  <div class="modal-popup position-relative z-20" [class]="{'d-none' : !isDisplayed}">
-    <div class="modal-header d-flex flew-row justfiy-between">
-      <span class="modal-header-text">Add Title</span>
-      <i-feather name="x" class="ml-auto cursor-pointer" (click)="closeModal()"></i-feather>
-    </div>
-    <div class="modal-body z-20">
-      <form [formGroup]="titleForm">
-        <div class="mb-3  w-100">
-          <div>
-            <mat-form-field class="w-100">
-              <mat-label>Title Name</mat-label>
-              <input matInput formControlName="titleName">
-            </mat-form-field>
-  
-          </div>
-        </div>
-        <div class="w-100 d-flex">
-          <div class="modal-col">
-            <mat-form-field class="w-90">
-              <mat-label>Release Date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="releaseDate">
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="modal-col">
-            <mat-form-field class="w-100">
-              <mat-label>Genres</mat-label>
-              <input type="text"
-                     matInput
-                     formControlName="genreForTitle"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                @for (genre of filteredGenres | async; track genre) {
-                  <mat-option [value]="genre">{{genre.genreName}}</mat-option>
-                }
-              </mat-autocomplete>
-            </mat-form-field>
-              <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
-              :allowNewValues="true" /> -->
-            </div>
-        </div>
-        <div class="w-100 d-flex flew-row mb-3">
+<div class="modal-popup position-relative z-20" [class]="{'d-none' : !isDisplayed}">
+  <div class="modal-header d-flex flew-row justfiy-between">
+    <span class="modal-header-text">Add Title</span>
+    <i-feather name="x" class="ml-auto cursor-pointer" (click)="closeModal()"></i-feather>
+  </div>
+  <div class="modal-body z-20">
+    <form [formGroup]="titleForm">
+      <div class="w-100">
+        <div>
+          <mat-form-field class="w-100">
+            <mat-label>Title Name</mat-label>
+            <input matInput formControlName="titleName">
+          </mat-form-field>
 
-          <div class="modal-col"> 
-            <mat-form-field class="w-90">
+        </div>
+      </div>
+      <div class="w-100 d-flex">
+        <div class="modal-col">
+          <mat-form-field class="w-90">
+            <mat-label>Release Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="modal-col">
+          <mat-form-field class="w-100">
+            <mat-label>Genres</mat-label>
+            <input type="text" matInput formControlName="genreForTitle" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              @for (genre of filteredGenres | async; track genre) {
+              <mat-option [value]="genre">{{genre.genreName}}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+          <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
+              :allowNewValues="true" /> -->
+        </div>
+      </div>
+      <div class="w-100 d-flex flew-row mb-3">
+
+        <div class="modal-col">
+          <mat-form-field class="w-90">
             <mat-label>Duration (min.) </mat-label>
             <input matInput formControlName="titleDuration" type="number">
           </mat-form-field>
-          </div>
-          <div>
-            <label for="formFileLg" class="d-block">Poster Image</label>
-            <input class="form-control form-control-lg" id="formFileLg" type="file"
-              (change)="onTitlePosterSelect($event)"  formControlName="titlePoster">
-          </div>
         </div>
+        <div>
+          <label for="formFileLg" class="d-block">Poster Image</label>
+          <input class="form-control form-control-lg" id="formFileLg" type="file" (change)="onTitlePosterSelect($event)"
+            formControlName="titlePoster">
+        </div>
+      </div>
 
-      </form>
-    </div>
-    <div class="modal-footer flex-row-reverse d-flex">
-      <button mat-button (click)="insertTitleClick()">Add Title</button>
-    </div>
-
+    </form>
   </div>
+  <div class="modal-footer flex-row-reverse d-flex">
+    <button mat-button (click)="insertTitleClick()">Add Title</button>
+  </div>
+
+</div>
