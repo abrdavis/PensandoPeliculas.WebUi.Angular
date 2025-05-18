@@ -9,8 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AdminHomeComponent,
-    EditReviewComponent
+    AdminHomeComponent
   ],
   imports: [
     CommonModule,

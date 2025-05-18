@@ -7,7 +7,7 @@ import { EditReviewComponent } from './pages/review/edit-review/edit-review.comp
 const routes: Routes = [
   { path: '', component: AdminHomeComponent },
   { path: 'review/insert', component: InsertReviewComponent },
-  { path: 'review/:id', component: EditReviewComponent },
+  { path: 'review/edit/:id', component: EditReviewComponent },
 ];
 
 @NgModule({

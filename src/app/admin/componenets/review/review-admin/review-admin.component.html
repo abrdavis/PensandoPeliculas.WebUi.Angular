@@ -8,7 +8,7 @@
         <mat-form-field class="w-100">
           <input type="hidden" formControlName="titleIdForReview"/>
           <mat-label>Title</mat-label>
-          <input type="text" formControlName="titleForReview" matInput [matAutocomplete]="auto">
+          <input type="text" formControlName="titleForReview" matInput [matAutocomplete]="auto" [ngModel]="{titleName: review.titleName, posterUrl: review.posterUrl, titleId: review.reviewTitleId}">
           <mat-autocomplete #auto="matAutocomplete"   [displayWith]="titleDisplayAutoComplete" 
            (optionSelected)='titleSelected($event.option.value)'
            >
@@ -25,7 +25,7 @@
       <div>
         <mat-form-field class="w-100">
           <mat-label>Review Title</mat-label>
-          <input matInput formControlName="reviewTitle">
+          <input matInput formControlName="reviewTitle" [ngModel]="review.reviewTitle">
         </mat-form-field>
         <span *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
           Review title is required.
@@ -33,7 +33,7 @@
       </div>
       <div class="d-flex flew-row">
         <div class="header-container">
-
+            <img [attr.src]="review.headerImageUrl" class="revew-header-preview" />
         </div>
         <div>
           <label for="reviewHeader">Review Header</label>
@@ -44,7 +44,7 @@
       <div>
         <mat-form-field class="w-100">
           <mat-label>Review Text</mat-label>
-          <textarea matInput formControlName="reviewText" placeholder="Some insightful thoughts about a film"></textarea>
+          <textarea matInput formControlName="reviewText" placeholder="Some insightful thoughts about a film" [ngModel]="review.reviewText"></textarea>
         </mat-form-field>
         <div *ngIf="reviewForm.get('reviewText')?.hasError('required') && (reviewForm.get('reviewText')?.touched|| reviewForm.get('reviewText')?.dirty )" class="error-text">
           Review text is required.
@@ -53,7 +53,7 @@
       <div>
         <mat-form-field>
           <mat-label>Rating</mat-label>
-          <input matInput formControlName="reviewRating" type="number">
+          <input matInput formControlName="reviewRating" type="number" [ngModel]="review.reviewRating">
         </mat-form-field>
         <div *ngIf="(reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
           <span *ngIf="reviewForm.get('reviewRating')?.hasError('min') || reviewForm.get('reviewRating')?.hasError('max')">

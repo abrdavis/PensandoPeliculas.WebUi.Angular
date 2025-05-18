@@ -43,8 +43,15 @@ export class ReviewAdminComponent {
   }
   getPosterImageUrl(): string {
     const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
-    return title?.posterUrl ?? '';
+    if(title){
+      return title.posterUrl ?? '';
+    }
+    else{
+      return '';
+    }
   }
+
+
   ngOnInit() {
     this.filteredTitles = this.reviewForm.get('titleForReview')!.valueChanges.pipe(
       debounceTime(300),
