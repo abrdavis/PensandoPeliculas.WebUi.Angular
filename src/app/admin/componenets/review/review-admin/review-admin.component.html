@@ -17,10 +17,10 @@
             }
           </mat-autocomplete>
         </mat-form-field>
-        <div *ngIf="reviewForm.get('titleIdForReview')?.hasError('min')" class="error-text">
-          A title is required for a review.
+        <div *ngIf="reviewForm.get('titleIdForReview')?.hasError('min') && (reviewForm.get('titleIdForReview')?.touched|| reviewForm.get('titleIdForReview')?.dirty )" class="error-text mb-2">
+          Please select a title to review.
         </div>
-        <span (click)="showAddTitleModal()">Add New Title</span>
+        <span (click)="showAddTitleModal()" class="cursor-pointer text-underline">Add New Title</span>
       </div>
       <div>
         <mat-form-field class="w-100">

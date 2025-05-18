@@ -1,6 +1,4 @@
-<div class="position-absolute modal-overlay z-10"
- [class]="{'d-none' : !isDisplayed}"
- (click)="onOverlayClick()">
+<div class="position-absolute modal-overlay z-10" [class]="{'d-none' : !isDisplayed}" (click)="onOverlayClick()">
 </div>
 <div class="modal-popup position-absolute z-20" [class]="{'d-none' : !isDisplayed}">
   <div class="modal-header d-flex flew-row justfiy-between">
@@ -15,30 +13,45 @@
             <mat-label>Title Name</mat-label>
             <input matInput formControlName="titleName">
           </mat-form-field>
-
+          <mat-error
+            *ngIf="titleForm.get('titleName')?.hasError('required')  && (titleForm.get('titleName')?.touched|| titleForm.get('titleName')?.dirty )">
+            A title name is required.
+          </mat-error>
         </div>
       </div>
       <div class="w-100 d-flex">
         <div class="modal-col">
           <mat-form-field class="w-90">
             <mat-label>Release Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+            <input matInput [matDatepicker]="picker" formControlName="releaseDate" [min]="minDate" #releaseDate>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          <mat-error *ngIf="titleForm.get('releaseDate')?.hasError('matDatepickerMin')">
+            Date must be on or after {{ minDate | date }}
+          </mat-error>
+          <mat-error
+            *ngIf="titleForm.get('releaseDate')?.hasError('required')  && (titleForm.get('genreId')?.touched|| titleForm.get('genreId')?.dirty )">
+            A release date is required.
+          </mat-error>
         </div>
         <div class="modal-col">
           <mat-form-field class="w-100">
             <mat-label>Genres</mat-label>
+            <input type="hidden" formControlName="genreId" formControlName="genreId" />
             <input type="text" matInput formControlName="genreForTitle" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+              (optionSelected)='genreSelected($event.option.value)'>
               @for (genre of filteredGenres | async; track genre) {
               <mat-option [value]="genre">{{genre.genreName}}</mat-option>
               }
             </mat-autocomplete>
           </mat-form-field>
-          <!-- <AutoComplete :inputData="genres" :inputKey="'genreName'" @auto-complete-select="onGenreSelect"
-              :allowNewValues="true" /> -->
+          <mat-error
+            *ngIf="titleForm.get('genreId')?.hasError('min') && (titleForm.get('genreId')?.touched|| titleForm.get('genreId')?.dirty )"
+            class="error-text mb-2">
+            Genre is required.
+          </mat-error>
         </div>
       </div>
       <div class="w-100 d-flex flew-row mb-3">
@@ -48,6 +61,11 @@
             <mat-label>Duration (min.) </mat-label>
             <input matInput formControlName="titleDuration" type="number">
           </mat-form-field>
+
+          <mat-error
+            *ngIf="titleForm.get('titleDuration')?.hasError('required')  && (titleForm.get('titleDuration')?.touched|| titleForm.get('titleDuration')?.dirty )">
+            A duration is required.
+          </mat-error>
         </div>
         <div>
           <label for="formFileLg" class="d-block">Poster Image</label>
@@ -58,7 +76,7 @@
 
     </form>
   </div>
-  <hr/>
+  <hr />
   <div class="modal-footer flex-row-reverse d-flex">
     <button mat-button (click)="insertTitleClick()" type="button">Add Title</button>
   </div>
