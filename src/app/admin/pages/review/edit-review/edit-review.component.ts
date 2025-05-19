@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReviewAdminComponent } from '../../../componenets/review/review-admin/review-admin.component';
-import { ReviewApiService } from '../../../../services/reviews/review-api.service';
+import { ReviewService } from '../../../../services/reviews/review-service';
 import { ActivatedRoute } from '@angular/router';
 import { Review } from '../../../../models/reviewModel';
-
+import { EditMode } from '../../../../utility/interceptors/constants/constants';
 @Component({
   selector: 'app-edit-review',
   standalone: true,
@@ -12,9 +12,9 @@ import { Review } from '../../../../models/reviewModel';
   imports: [ReviewAdminComponent]
 })
 export class EditReviewComponent {
-
+  mode: string = EditMode.Update;
   reviewToEdit:Review = new Review();
-  constructor(private reviewService:ReviewApiService,
+  constructor(private reviewService:ReviewService,
     private route: ActivatedRoute
   ){
 

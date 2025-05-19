@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HomePageViewModel } from '../../models/homePageViewModel';
-import { ReviewApiService } from '../../services/reviews/review-api.service';
+import { ReviewService } from '../../services/reviews/review-service';
 import { ReviewThumbnailComponent } from '../../shared/components/review-thumbnail/review-thumbnail.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { ReviewThumbnailComponent } from '../../shared/components/review-thumbna
 export class HomeComponent {
   viewModel! : HomePageViewModel;
   
-  constructor(private reviewService: ReviewApiService){
+  constructor(private reviewService: ReviewService){
 
   }
   ngOnInit() {

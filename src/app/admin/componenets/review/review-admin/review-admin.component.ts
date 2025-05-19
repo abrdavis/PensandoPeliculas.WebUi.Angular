@@ -9,6 +9,8 @@ import { debounceTime, Observable, switchMap } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TitleService } from '../../../../services/titles/title-service';
 import { MatInputModule } from '@angular/material/input';
+import { EditMode } from '../../../../utility/interceptors/constants/constants';
+import { ReviewService } from '../../../../services/reviews/review-service';
 
 @Component({
   selector: 'review-admin',
@@ -18,10 +20,14 @@ import { MatInputModule } from '@angular/material/input';
   imports: [CommonModule, InsertTitleModalComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe]
 })
 export class ReviewAdminComponent {
+
   @Input() review: Review = new Review()
-  @Input() mode: String = ''
+  @Input({ required: true }) mode: String = ''
   @ViewChild(InsertTitleModalComponent) insertTitleModal?: InsertTitleModalComponent;
   filteredTitles!: Observable<Title[]>;
+  updateMode: string = EditMode.Update;
+  insertMode: string = EditMode.Insert;
+  headerImage: string = '';
 
   reviewForm = new FormGroup({
     titleIdForReview: new FormControl<number>(0, [Validators.min(1)]),
@@ -32,24 +38,41 @@ export class ReviewAdminComponent {
       [Validators.required,
       Validators.min(1),
       Validators.max(10),
-      Validators.pattern(/^\d*\.?\d{1}$/)])
+      Validators.pattern(/^\d*\.?\d{1}$/)]),
+    headerImgUrl: new FormControl<string>('')
   });
 
-  constructor(private titleService: TitleService) {
+  constructor(private titleService: TitleService,
+    private reviewService: ReviewService
+  ) {
 
   }
+
+  onHeaderImageSelect(event: any) {
+    const headerImg = event.target.files[0];
+    if (headerImg) {
+      let reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.review.headerImageUrl = event.target.result;
+      }
+
+       reader.readAsDataURL(headerImg);
+    }
+  }
   titleSelected(title: Title) {
-    this.reviewForm.patchValue({titleIdForReview: title.titleId});
+    this.reviewForm.patchValue({ titleIdForReview: title.titleId });
   }
   getPosterImageUrl(): string {
     const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
-    if(title){
+    if (title) {
       return title.posterUrl ?? '';
     }
-    else{
+    else {
       return '';
     }
   }
+
 
 
   ngOnInit() {
@@ -70,16 +93,38 @@ export class ReviewAdminComponent {
   }
   insertReviewClick() {
     const titleId = this.reviewForm.get('titleIdForReview');
-    if (this.reviewForm.valid) {
+    if (this.isValid()) {
       const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
       console.log(title);
     }
-    else {
+  }
+
+  updateReviewClick() {
+    if (this.isValid()) {
+      const titleId = this.reviewForm.get('titleIdForReview')?.value as number;
+      this.reviewService.updateReview(this.review.reviewId,
+        titleId,
+        this.reviewForm.get('reviewRating')?.value as number,
+        this.reviewForm.get('reviewText')?.value as string,
+        this.reviewForm.get('reviewTitle')?.value as string,
+        ''
+
+      ).subscribe(res => {
+        console.log(res)
+      });
+    }
+  }
+
+  isValid() {
+    if (!this.reviewForm.valid) {
       Object.values(this.reviewForm.controls).forEach(control => {
         if (!control.valid)
           control.markAsDirty();
       });
+
+      return false;
     }
 
+    return true;
   }
 }

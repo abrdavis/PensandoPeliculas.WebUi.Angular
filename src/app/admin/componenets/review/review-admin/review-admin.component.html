@@ -37,7 +37,7 @@
         </div>
         <div>
           <label for="reviewHeader">Review Header</label>
-          <input type="file"/>
+          <input type="file" (change)="onHeaderImageSelect($event)"/>
         </div>
 
       </div>
@@ -71,7 +71,13 @@
   </div>
 
   <div>
-    <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
+    @if(mode == insertMode){
+      <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
+    }
+    @else{
+      <button mat-button (click)="updateReviewClick()" type="button">Update Review</button>
+    }
+    
   </div>
 
 

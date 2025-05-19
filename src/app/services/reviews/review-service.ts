@@ -8,7 +8,7 @@ import { Review } from '../../models/reviewModel';
 @Injectable({
   providedIn: 'root'
 })
-export class ReviewApiService {
+export class ReviewService {
   private baseUrl = environment.apiUrl;
   constructor(private apiService :ApiService ) {
 
@@ -25,5 +25,17 @@ export class ReviewApiService {
         return res;
       });
   }
+
+  updateReview(reviewId: number,
+    titleId: number,
+    reviewRating: number,
+    reviewText: string,
+    reviewTitle: string,
+    headerImgUrl: string) : Observable<any>{
+            return  this.apiService.get<HomePageViewModel>(`${environment.apiUrl}/Review/GetForHomePage`).pipe(res => {   
+        return res;
+      });
+    }
+  
 
 }

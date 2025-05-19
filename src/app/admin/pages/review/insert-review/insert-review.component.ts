@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Review } from '../../../../models/reviewModel';
 import { ReviewAdminComponent } from '../../../componenets/review/review-admin/review-admin.component';
+import { EditMode } from '../../../../utility/interceptors/constants/constants';
 
 @Component({
   selector: 'app-insert-review',
@@ -10,6 +10,6 @@ import { ReviewAdminComponent } from '../../../componenets/review/review-admin/r
   imports: [ReviewAdminComponent]
 })
 export class InsertReviewComponent {
-
+mode: string = EditMode.Insert;
 
 }
