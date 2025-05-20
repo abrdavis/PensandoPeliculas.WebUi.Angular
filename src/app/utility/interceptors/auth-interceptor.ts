@@ -28,6 +28,7 @@ export class AuthErrorInterceptor implements HttpInterceptor {
           const currentRoute = this.router.routerState.snapshot.url;
           if(currentRoute != '/login')
             localStorage.setItem('returnUrl', currentRoute);
+          localStorage.removeItem('user')
           this.router.navigate(['/login']);
         } else if (error.status === 403) {
 

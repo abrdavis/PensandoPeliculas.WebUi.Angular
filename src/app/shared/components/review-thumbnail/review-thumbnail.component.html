@@ -2,29 +2,32 @@
   <div class="row">
     <div class="col">
       <div id="thumbContainer" class="grid mx-auto">
-        @for (review of reviews; track review.reviewId)
-        {
-        <div>
-          <a [attr.href]="`/review/${review.slug}`"
-            class="justify-content-end flex-column text-decoration-none thumb-link overflow-hidden">
-            <img [attr.src]="review.headerImageUrl" class="review-poster-home  position-absolute w--100 h-100" />
-            <h3 class="d-inline z-10">
-              <span class="text-white"> {{ review.titleName }}</span>
-            </h3>
-            <div class="d-flex justify-between z-10 mt-2 text-white">
+        @if(reviews !== undefined){
+          @for (review of reviews; track review.reviewId)
+          {
+          <div>
+            <a [attr.href]="`/review/${review.slug}`"
+              class="justify-content-end flex-column text-decoration-none thumb-link overflow-hidden">
+              <img [attr.src]="review.headerImageUrl" class="review-poster-home  position-absolute w--100 h-100" />
+              <h3 class="d-inline z-10">
+                <span class="text-white"> {{ review.titleName }}</span>
+              </h3>
+              <div class="d-flex justify-between z-10 mt-2 text-white">
 
-              <div class="d-flex justify-start items-center">
-                <div class="rating-box position-relative">
-                  {{ review.reviewRating }} / 10
+                <div class="d-flex justify-start items-center">
+                  <div class="rating-box position-relative">
+                    {{ review.reviewRating }} / 10
+                  </div>
+                </div>
+                <div class="montserrat-500 text-white text-sm">
+                  {{review.reviewAuthor}}
                 </div>
               </div>
-              <div class="montserrat-500 text-white text-sm">
-                {{review.reviewAuthor}}
-              </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
+          }
         }
+
 
       </div>
     </div>

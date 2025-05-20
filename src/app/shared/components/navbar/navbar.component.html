@@ -3,10 +3,10 @@
     <a routerLink="/" class="nav-item nav-link site-logo-text td-none">Pensando Peliculas</a>
 
 
-      <div class="d-inline ml-auto" id="adminNavLinks" role="search" *ngIf="userName">
+      <div class="d-inline ml-auto" id="adminNavLinks" role="search" *ngIf="isLoggedIn()">
         <a class="td-none" routerLink="/admin">Admin</a>
         <a class="td-none" routerLink="/admin/review/insert">Post Review</a>
-        <span (click)="logout()" style="color:purple" class="nav-link">Logout</span>
+        <span (click)="logout()" style="color:purple" class="nav-link cursor-pointer">Logout</span>
       </div>
 
   </div>

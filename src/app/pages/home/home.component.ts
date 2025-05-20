@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HomePageViewModel } from '../../models/homePageViewModel';
 import { ReviewService } from '../../services/reviews/review-service';
-import { ReviewThumbnailComponent } from '../../shared/components/review-thumbnail/review-thumbnail.component';
+
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import { ReviewThumbnailComponent } from '../../shared/components/review-thumbna
 
 })
 export class HomeComponent {
-  viewModel! : HomePageViewModel;
+  viewModel : HomePageViewModel = new HomePageViewModel([], []);
   
   constructor(private reviewService: ReviewService){
 

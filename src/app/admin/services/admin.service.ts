@@ -10,7 +10,7 @@ export class AdminService {
   constructor(private apiService :ApiService) { }
 
   checkAuth(){
-    this.apiService.get(`${environment.apiUrl}/Admin/AuthCheck`, {
+    this.apiService.get(`${environment.apiUrl}/User/AuthCheck`, {
       withCredentials: true
     }).subscribe(res => {
 

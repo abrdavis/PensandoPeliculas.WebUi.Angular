@@ -11,8 +11,6 @@ export class AuthService {
 
   constructor(private apiService: ApiService) 
   { 
-
-
   }
 
   login(userName: string, password : string) : Observable<any>{
@@ -24,10 +22,16 @@ export class AuthService {
   }
 
    logout(): Observable<any> {
+    localStorage.removeItem('user');
     return this.apiService.get<any>(`${environment.apiUrl}/User/Logout`, {
       withCredentials: true
     }).pipe(res => {
       return res;
     });
+  }
+
+  isLoggedIn(){
+    let isLoggedIn =  !localStorage.getItem('user') ? false : true;
+    return isLoggedIn;
   }
 }

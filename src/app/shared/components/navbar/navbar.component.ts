@@ -18,6 +18,10 @@ export class NavbarComponent {
     this.authService.logout().subscribe(res => {
       this.router.navigate(['/']);
     })
-    
+
   }
+
+  isLoggedIn(): boolean{
+      return this.authService.isLoggedIn();
+    }
 }
