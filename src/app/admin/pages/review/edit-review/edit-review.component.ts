@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { ReviewAdminComponent } from '../../../componenets/review/review-admin/review-admin.component';
 import { ReviewService } from '../../../../services/reviews/review-service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +10,7 @@ import { EditMode } from '../../../../utility/interceptors/constants/constants';
   standalone: true,
   templateUrl: './edit-review.component.html',
   styleUrl: './edit-review.component.css',
-  imports: [ReviewAdminComponent]
+  imports: [ReviewAdminComponent, NgIf]
 })
 export class EditReviewComponent {
   mode: string = EditMode.Update;
@@ -19,11 +20,13 @@ export class EditReviewComponent {
   ){
 
   }
+  reviewLoaded: boolean = false;
 
   ngOnInit(){
     const reviewId =  Number(this.route.snapshot.paramMap.get('id'))
     this.reviewService.getReviewForId(reviewId).subscribe(res =>{
       this.reviewToEdit = res;
+      this.reviewLoaded = true;
     } )
   }
 }

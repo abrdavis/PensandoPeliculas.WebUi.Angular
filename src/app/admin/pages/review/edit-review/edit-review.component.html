@@ -1,1 +1,4 @@
-<review-admin [review]="reviewToEdit" [mode]="mode"></review-admin>
+
+
+    <review-admin  *ngIf="reviewLoaded" [review]="reviewToEdit" [mode]="mode"  ></review-admin>
+

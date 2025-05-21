@@ -11,17 +11,18 @@ import { TitleService } from '../../../../services/titles/title-service';
 import { MatInputModule } from '@angular/material/input';
 import { EditMode } from '../../../../utility/interceptors/constants/constants';
 import { ReviewService } from '../../../../services/reviews/review-service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'review-admin',
   standalone: true,
   templateUrl: './review-admin.component.html',
   styleUrl: './review-admin.component.css',
-  imports: [CommonModule, InsertTitleModalComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, AsyncPipe]
+  imports: [CommonModule, InsertTitleModalComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule, MatAutocompleteModule, AsyncPipe]
 })
 export class ReviewAdminComponent {
 
-  @Input() review: Review = new Review()
+  @Input() review!: Review;
   @Input({ required: true }) mode: String = ''
   @ViewChild(InsertTitleModalComponent) insertTitleModal?: InsertTitleModalComponent;
   filteredTitles!: Observable<Title[]>;
@@ -30,6 +31,7 @@ export class ReviewAdminComponent {
   headerImage: string = '';
 
   reviewForm = new FormGroup({
+
     titleIdForReview: new FormControl<number>(0, [Validators.min(1)]),
     titleForReview: new FormControl<Title | ''>('', [Validators.required]),
     reviewTitle: new FormControl<string>('', [Validators.required]),
@@ -46,7 +48,10 @@ export class ReviewAdminComponent {
     private reviewService: ReviewService
   ) {
 
+
   }
+
+
 
   onHeaderImageSelect(event: any) {
     const headerImg = event.target.files[0];
@@ -54,15 +59,19 @@ export class ReviewAdminComponent {
       let reader = new FileReader();
 
       reader.onload = (event: any) => {
-        this.review.headerImageUrl = event.target.result;
+        this.reviewForm.patchValue({
+          headerImgUrl: event.target.result
+        });
       }
 
-       reader.readAsDataURL(headerImg);
+      reader.readAsDataURL(headerImg);
     }
   }
+
   titleSelected(title: Title) {
     this.reviewForm.patchValue({ titleIdForReview: title.titleId });
   }
+
   getPosterImageUrl(): string {
     const title: Title = this.reviewForm.get('titleForReview')?.value as Title;
     if (title) {
@@ -80,6 +89,22 @@ export class ReviewAdminComponent {
       debounceTime(300),
       switchMap(value => this.titleService.getTitlesForFilter(value as string))
     );
+
+    if (this.review !== undefined) {
+      const title = new Title(this.review.reviewTitleId, this.review.titleName, this.review.posterUrl, '');
+      this.reviewForm.patchValue(
+        {
+          titleForReview: title,
+          titleIdForReview: title.titleId,
+          reviewTitle: this.review.reviewTitle,
+          reviewText: this.review.reviewText,
+          reviewRating: this.review.reviewRating,
+          headerImgUrl: this.review.headerImageUrl
+        }
+      );
+
+    }
+
   }
   showAddTitleModal() {
     this.insertTitleModal!.displayModal();
@@ -117,11 +142,6 @@ export class ReviewAdminComponent {
 
   isValid() {
     if (!this.reviewForm.valid) {
-      Object.values(this.reviewForm.controls).forEach(control => {
-        if (!control.valid)
-          control.markAsDirty();
-      });
-
       return false;
     }
 

@@ -1,23 +1,24 @@
 <form id="reviewForm" [formGroup]="reviewForm">
   <div class="d-flex flew-row">
     <div id="posterImgContainer">
-      <img [attr.src]="getPosterImageUrl()" class="poster-image"/>
+      <img [attr.src]="getPosterImageUrl()" class="poster-image" />
     </div>
     <div class="d-flex flex-column w-100">
       <div class="w-100 mb-3">
         <mat-form-field class="w-100">
-          <input type="hidden" formControlName="titleIdForReview"/>
+          <input type="hidden" formControlName="titleIdForReview">
           <mat-label>Title</mat-label>
-          <input type="text" formControlName="titleForReview" matInput [matAutocomplete]="auto" [ngModel]="{titleName: review.titleName, posterUrl: review.posterUrl, titleId: review.reviewTitleId}">
-          <mat-autocomplete #auto="matAutocomplete"   [displayWith]="titleDisplayAutoComplete" 
-           (optionSelected)='titleSelected($event.option.value)'
-           >
+          <input type="text" formControlName="titleForReview" matInput [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="titleDisplayAutoComplete"
+            (optionSelected)='titleSelected($event.option.value)'>
             @for (title of filteredTitles | async; track title) {
-              <mat-option [value]="title">{{title.titleName}}</mat-option>
+            <mat-option [value]="title">{{title.titleName}}</mat-option>
             }
           </mat-autocomplete>
         </mat-form-field>
-        <div *ngIf="reviewForm.get('titleIdForReview')?.hasError('min') && (reviewForm.get('titleIdForReview')?.touched|| reviewForm.get('titleIdForReview')?.dirty )" class="error-text mb-2">
+        <div
+          *ngIf="reviewForm.get('titleIdForReview')?.hasError('min') && (reviewForm.get('titleIdForReview')?.touched|| reviewForm.get('titleIdForReview')?.dirty )"
+          class="error-text mb-2">
           Please select a title to review.
         </div>
         <span (click)="showAddTitleModal()" class="cursor-pointer text-underline">Add New Title</span>
@@ -25,64 +26,69 @@
       <div>
         <mat-form-field class="w-100">
           <mat-label>Review Title</mat-label>
-          <input matInput formControlName="reviewTitle" [ngModel]="review.reviewTitle">
+          <input matInput formControlName="reviewTitle">
         </mat-form-field>
-        <span *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
+        <span
+          *ngIf="reviewForm.get('reviewTitle')?.hasError('required') && (reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )"
+          class="error-text">
           Review title is required.
         </span>
       </div>
-      <div class="d-flex flew-row">
+      <div class="d-flex flew-row mt-2">
         <div class="header-container">
-            <img [attr.src]="review.headerImageUrl" class="revew-header-preview" />
+          <img [attr.src]="reviewForm.get('headerImgUrl')?.value" class="revew-header-preview" />
         </div>
         <div>
           <label for="reviewHeader">Review Header</label>
-          <input type="file" (change)="onHeaderImageSelect($event)"/>
+          <input type="file" (change)="onHeaderImageSelect($event)" name="reviewHeader" id="reviewHeader" />
         </div>
 
       </div>
       <div>
         <mat-form-field class="w-100">
           <mat-label>Review Text</mat-label>
-          <textarea matInput formControlName="reviewText" placeholder="Some insightful thoughts about a film" [ngModel]="review.reviewText"></textarea>
+          <textarea matInput formControlName="reviewText"
+            placeholder="Some insightful thoughts about a film"></textarea>
         </mat-form-field>
-        <div *ngIf="reviewForm.get('reviewText')?.hasError('required') && (reviewForm.get('reviewText')?.touched|| reviewForm.get('reviewText')?.dirty )" class="error-text">
+        <div
+          *ngIf="reviewForm.get('reviewText')?.hasError('required') && (reviewForm.get('reviewText')?.touched|| reviewForm.get('reviewText')?.dirty )"
+          class="error-text">
           Review text is required.
         </div>
       </div>
-      <div>
+      <div class="mt-2">
         <mat-form-field>
           <mat-label>Rating</mat-label>
-          <input matInput formControlName="reviewRating" type="number" [ngModel]="review.reviewRating">
+          <input matInput formControlName="reviewRating" type="number">
         </mat-form-field>
-        <div *ngIf="(reviewForm.get('reviewTitle')?.touched|| reviewForm.get('reviewTitle')?.dirty )" class="error-text">
-          <span *ngIf="reviewForm.get('reviewRating')?.hasError('min') || reviewForm.get('reviewRating')?.hasError('max')">
+        <div *ngIf="(reviewForm.get('reviewRating')?.touched|| reviewForm.get('reviewRating')?.dirty )"
+          class="error-text">
+
+          <span *ngIf="reviewForm.get('reviewRating')?.hasError('required')">
+            A rating is required.
+          </span>
+          <span
+            *ngIf="reviewForm.get('reviewRating')?.hasError('min') || reviewForm.get('reviewRating')?.hasError('max')">
             Rating should be between 1 and 10.
           </span>
           <span *ngIf="reviewForm.get('reviewRating')?.hasError('pattern')">
             Single digit decimal only.
           </span>
-            
+
         </div>
       </div>
+      <div>
+        @if(mode == insertMode){
+        <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
+        }
+        @else{
+        <button mat-button (click)="updateReviewClick()" type="button">Update Review</button>
+        }
+
+      </div>
     </div>
-
-
   </div>
-
-  <div>
-    @if(mode == insertMode){
-      <button mat-button (click)="insertReviewClick()" type="button">Add Review</button>
-    }
-    @else{
-      <button mat-button (click)="updateReviewClick()" type="button">Update Review</button>
-    }
-    
-  </div>
-
-
 </form>
 
 <insert-title-modal #insertTitleModal (onSubmit)="onModalTitleClick($event)">
 </insert-title-modal>
-
