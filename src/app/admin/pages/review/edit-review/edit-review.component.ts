@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ReviewAdminComponent } from '../../../componenets/review/review-admin/review-admin.component';
-import { ReviewService } from '../../../../services/reviews/review-service';
+import { ReviewService } from '../../../../services/reviews/review.service';
 import { ActivatedRoute } from '@angular/router';
-import { Review } from '../../../../models/reviewModel';
+import { Review } from '../../../../models/review.model';
 import { EditMode } from '../../../../utility/interceptors/constants/constants';
 @Component({
   selector: 'app-edit-review',

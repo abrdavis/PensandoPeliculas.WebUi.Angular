@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TitleService } from '../../../services/titles/title-service';
+import { TitleService } from '../../../services/titles/title.service';
 import { FeatherIconsModule } from '../../../shared/modules/feather-icons-module/feather.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Genre } from '../../../models/genreModel';
+import { Genre } from '../../../models/genre.model';
 import { map, Observable, startWith } from 'rxjs';
 import { MetaDataService } from '../../../services/metadata/meta-data.service.';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -16,8 +16,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @Component({
   selector: 'insert-title-modal',
   standalone: true,
-  templateUrl: './insert-title-modal-component.html',
-  styleUrl: './insert-title-modal-component.css',
+  templateUrl: './insert-title-modal.component.html',
+  styleUrl: './insert-title-modal.component.css',
   providers: [provideNativeDateAdapter()],
   imports: [FormsModule, ReactiveFormsModule, FeatherIconsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatAutocompleteModule, AsyncPipe, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HomePageViewModel } from '../../models/homePageViewModel';
-import { ApiService } from '../api/api-service.service';
+import { HomePageViewModel } from '../../models/home-page.model';
+import { ApiService } from '../api/api.service';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environments';
-import { Review } from '../../models/reviewModel';
+import { Review } from '../../models/review.model';
 
 @Injectable({
   providedIn: 'root'

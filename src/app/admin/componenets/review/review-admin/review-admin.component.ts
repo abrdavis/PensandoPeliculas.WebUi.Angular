@@ -1,16 +1,16 @@
 import { Component, computed, Input, ViewChild } from '@angular/core';
-import { Review } from '../../../../models/reviewModel';
-import { InsertTitleModalComponent } from '../../title/insert-title-modal-component';
+import { Review } from '../../../../models/review.model';
+import { InsertTitleModalComponent } from '../../title/insert-title-modal.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Title } from '../../../../models/titleModel';
+import { Title } from '../../../../models/title.model';
 import { debounceTime, Observable, switchMap } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TitleService } from '../../../../services/titles/title-service';
+import { TitleService } from '../../../../services/titles/title.service';
 import { MatInputModule } from '@angular/material/input';
 import { EditMode } from '../../../../utility/interceptors/constants/constants';
-import { ReviewService } from '../../../../services/reviews/review-service';
+import { ReviewService } from '../../../../services/reviews/review.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

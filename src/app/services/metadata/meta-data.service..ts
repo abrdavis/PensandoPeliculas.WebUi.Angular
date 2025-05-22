@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../api/api-service.service';
+import { ApiService } from '../api/api.service';
 import { environment } from '../../environments/environments';
 import { map, Observable } from 'rxjs';
-import { Genre } from '../../models/genreModel';
+import { Genre } from '../../models/genre.model';
 
 @Injectable({
   providedIn: 'root'

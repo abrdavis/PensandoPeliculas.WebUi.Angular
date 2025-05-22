@@ -1,4 +1,4 @@
-import { Review } from "./reviewModel";
+import { Review } from "./review.model";
 
 export class HomePageViewModel{
   [x: string]: any;

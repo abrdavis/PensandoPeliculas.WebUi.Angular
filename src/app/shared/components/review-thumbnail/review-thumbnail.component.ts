@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Review } from '../../../models/reviewModel';
+import { Review } from '../../../models/review.model';
 
 @Component({
   selector: 'review-thumbnail',

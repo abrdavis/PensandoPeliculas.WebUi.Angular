@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HomePageViewModel } from '../../models/homePageViewModel';
-import { ReviewService } from '../../services/reviews/review-service';
+import { HomePageViewModel } from '../../models/home-page.model';
+import { ReviewService } from '../../services/reviews/review.service';
 
 
 @Component({
